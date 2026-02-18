@@ -62,14 +62,14 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           const Divider(),
-          // My ChatGPT Section
+          // My KixxGPT Section
           Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'My ChatGPT',
+                  'My KixxGPT',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

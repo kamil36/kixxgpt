@@ -113,7 +113,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                         maxLines: 5,
                         minLines: 1,
                         decoration: InputDecoration(
-                          hintText: 'Ask ChatGPT',
+                          hintText: 'Ask KixxGPT',
                           border: InputBorder.none,
                           isDense: true,
                           contentPadding: const EdgeInsets.symmetric(

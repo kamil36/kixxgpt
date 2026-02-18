@@ -357,7 +357,7 @@ class _MainAppPageState extends State<MainAppPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  'ChatGPT Plus',
+                                  'KixxGPT Plus',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -472,7 +472,7 @@ class _MainAppPageState extends State<MainAppPage> {
               title: ElevatedButton.icon(
                 onPressed: _handleGetPlus,
                 icon: const Icon(Icons.star, size: 18),
-                label: const Text('Get Plus'),
+                label: Text('Get Plus $_selectedModel'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF10A37F),
                   foregroundColor: Colors.white,
