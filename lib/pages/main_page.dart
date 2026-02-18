@@ -189,6 +189,46 @@ class _MainAppPageState extends State<MainAppPage> {
     setState(() {
       _showQuickActions = !_showQuickActions;
     });
+    if (_showQuickActions) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                ),
+                child: QuickActionMenu(
+                  onPhotos: () {
+                    Navigator.pop(context);
+                    _addPhoto();
+                  },
+                  onCamera: () {
+                    Navigator.pop(context);
+                    _addCamera();
+                  },
+                  onFiles: () {
+                    Navigator.pop(context);
+                    _addFile();
+                  },
+                  onCreateImage: () {
+                    Navigator.pop(context);
+                    _createImage();
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ).whenComplete(() {
+        setState(() {
+          _showQuickActions = false;
+        });
+      });
+    }
   }
 
   Future<void> _addPhoto() async {
@@ -264,12 +304,6 @@ class _MainAppPageState extends State<MainAppPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
     );
-  }
-
-  void _removeDocument(int index) {
-    setState(() {
-      _documentManager.removeDocument(index);
-    });
   }
 
   void _handleGetPlus() {
@@ -485,63 +519,52 @@ class _MainAppPageState extends State<MainAppPage> {
       ),
       body: Column(
         children: [
-          Expanded(child: _buildCurrentPage()),
-          // Attached Documents Display
+          Expanded(
+            child: _currentPage == AppPage.home
+                ? HomePage(
+                    onOpenChat: _openChatWithType,
+                    messageController: _messageController,
+                    onSendMessage: (message) => _sendMessage(),
+                  )
+                : _currentPage == AppPage.chat
+                ? ChatPageWidget(
+                    onBackPressed: _navigateToHome,
+                    messagesNotifier: _messagesNotifier,
+                    scrollController: _chatScrollController,
+                  )
+                : SettingsPage(
+                    onBackPressed: _navigateToHome,
+                    onLogout: _handleSignOut,
+                  ),
+          ),
           if (_documentManager.count > 0)
             DocumentDisplay(
               documents: _documentManager.documents,
-              onRemove: _removeDocument,
+              onRemove: (index) {
+                setState(() {
+                  _documentManager.removeDocument(index);
+                });
+              },
             ),
         ],
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (_showQuickActions)
-            QuickActionMenu(
-              onPhotos: _addPhoto,
-              onCamera: _addCamera,
-              onFiles: _addFile,
-              onCreateImage: _createImage,
-            ),
-          AnimatedPadding(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: SafeArea(
-              top: false,
-              child: ChatInputBar(
-                controller: _messageController,
-                onSend: _onSendPressed,
-                onVoicePressed: _handleVoicePressed,
-                onAttachmentPressed: _handleAttachmentPressed,
-                isLoading: false,
-              ),
-            ),
+      bottomSheet: AnimatedPadding(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SafeArea(
+          top: false,
+          child: ChatInputBar(
+            controller: _messageController,
+            onSend: _onSendPressed,
+            onVoicePressed: _handleVoicePressed,
+            onAttachmentPressed: _handleAttachmentPressed,
+            isLoading: false,
           ),
-        ],
+        ),
       ),
     );
-  }
-
-  Widget _buildCurrentPage() {
-    switch (_currentPage) {
-      case AppPage.home:
-        return HomePage(
-          onOpenChat: _openChatWithType,
-          messageController: _messageController,
-          onSendMessage: (message) => _sendMessage(),
-        );
-      case AppPage.chat:
-        return ChatPageWidget(
-          onBackPressed: _navigateToHome,
-          messagesNotifier: _messagesNotifier,
-          scrollController: _chatScrollController,
-        );
-      case AppPage.settings:
-        return SettingsPage(onBackPressed: _navigateToHome);
-    }
   }
 }

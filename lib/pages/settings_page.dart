@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
   final VoidCallback onBackPressed;
+  final VoidCallback? onLogout;
 
-  const SettingsPage({super.key, required this.onBackPressed});
+  const SettingsPage({super.key, required this.onBackPressed, this.onLogout});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -189,7 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: SizedBox(
               width: double.infinity,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: widget.onLogout,
                 icon: const Icon(Icons.logout, color: Colors.red),
                 label: const Text(
                   'Log out',

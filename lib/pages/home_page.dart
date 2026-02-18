@@ -33,15 +33,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _handleSendMessage() {
-    final message = _messageController.text;
-    if (message.isEmpty) return;
-
-    _messageController.clear();
-    widget.onSendMessage?.call(message);
-    widget.onOpenChat.call('general');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
