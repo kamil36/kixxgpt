@@ -59,7 +59,9 @@ class _ChatInputBarState extends State<ChatInputBar> {
         color: Theme.of(context).colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: Theme.of(context).colorScheme.outline.withOpacity(0.12),
+            color: Theme.of(
+              context,
+            ).colorScheme.outline.withValues(alpha: 0.12),
           ),
         ),
       ),
@@ -93,8 +95,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
                           ? null
                           : widget.onAttachmentPressed,
                       child: Container(
-                        width: 36,
-                        height: 36,
                         decoration: BoxDecoration(
                           color: isDark ? Colors.grey[800] : Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -125,8 +125,9 @@ class _ChatInputBarState extends State<ChatInputBar> {
                           widget.onFocusRequested?.call();
                         },
                         onSubmitted: (value) {
-                          if (!widget.isLoading && value.isNotEmpty)
+                          if (!widget.isLoading && value.isNotEmpty) {
                             widget.onSend();
+                          }
                         },
                       ),
                     ),

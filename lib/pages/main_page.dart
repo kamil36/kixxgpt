@@ -450,6 +450,7 @@ class _MainAppPageState extends State<MainAppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: _currentPage == AppPage.home
           ? AppBar(
               elevation: 0,

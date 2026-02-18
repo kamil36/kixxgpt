@@ -249,7 +249,7 @@ class AppDrawer extends StatelessWidget {
                                         .textTheme
                                         .bodySmall
                                         ?.color
-                                        ?.withOpacity(0.8),
+                                        ?.withValues(alpha: 0.8),
                                   ),
                                 )
                               else if (userEmail != null)
@@ -260,7 +260,7 @@ class AppDrawer extends StatelessWidget {
                                         .textTheme
                                         .bodySmall
                                         ?.color
-                                        ?.withOpacity(0.8),
+                                        ?.withValues(alpha: 0.8),
                                   ),
                                 ),
                             ],
@@ -277,8 +277,8 @@ class AppDrawer extends StatelessWidget {
                       children: [
                         ListTile(
                           leading: const Icon(
-                            Icons.upgrade,
-                            color: Colors.white70,
+                            Icons.arrow_circle_up_sharp,
+                            color: Colors.black,
                           ),
                           title: const Text('Upgrade plan'),
                           onTap: () {
@@ -291,7 +291,7 @@ class AppDrawer extends StatelessWidget {
                         ListTile(
                           leading: const Icon(
                             Icons.color_lens,
-                            color: Colors.white70,
+                            color: Colors.black,
                           ),
                           title: const Text('Personalization'),
                           onTap: () {
@@ -304,7 +304,7 @@ class AppDrawer extends StatelessWidget {
                         ListTile(
                           leading: const Icon(
                             Icons.settings,
-                            color: Colors.white70,
+                            color: Colors.black,
                           ),
                           title: const Text('Settings'),
                           onTap: () {
@@ -315,7 +315,7 @@ class AppDrawer extends StatelessWidget {
                         ListTile(
                           leading: const Icon(
                             Icons.help_outline,
-                            color: Colors.white70,
+                            color: Colors.black,
                           ),
                           title: const Text('Help'),
                           onTap: () {
