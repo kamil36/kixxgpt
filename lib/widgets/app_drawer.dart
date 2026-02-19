@@ -203,71 +203,80 @@ class AppDrawer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.all(12),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 18,
-                          backgroundColor:
-                              Theme.of(context).brightness == Brightness.dark
-                              ? Colors.grey[700]
-                              : Colors.grey[400],
-                          child: userName != null
-                              ? Text(
-                                  userName!
-                                      .trim()
-                                      .split(' ')
-                                      .map((s) => s.isNotEmpty ? s[0] : '')
-                                      .join()
-                                      .toUpperCase(),
-                                  style: const TextStyle(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        onSettings();
+                      },
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey[700]
+                                : Colors.grey[400],
+                            child: userName != null
+                                ? Text(
+                                    userName!
+                                        .trim()
+                                        .split(' ')
+                                        .map((s) => s.isNotEmpty ? s[0] : '')
+                                        .join()
+                                        .toUpperCase(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  )
+                                : const Icon(
+                                    Icons.person,
                                     color: Colors.white,
-                                    fontSize: 12,
+                                    size: 18,
                                   ),
-                                )
-                              : const Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                userName ?? 'Guest User',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              if (userHandle != null)
-                                Text(
-                                  userHandle!,
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.color
-                                        ?.withValues(alpha: 0.8),
-                                  ),
-                                )
-                              else if (userEmail != null)
-                                Text(
-                                  userEmail!,
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.color
-                                        ?.withValues(alpha: 0.8),
-                                  ),
-                                ),
-                            ],
                           ),
-                        ),
-                        const Icon(Icons.chevron_right, color: Colors.white54),
-                      ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  userName ?? 'Guest User',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                if (userHandle != null)
+                                  Text(
+                                    userHandle!,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.color
+                                          ?.withValues(alpha: 0.8),
+                                    ),
+                                  )
+                                else if (userEmail != null)
+                                  Text(
+                                    userEmail!,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.color
+                                          ?.withValues(alpha: 0.8),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.chevron_right,
+                            color: Colors.white54,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),

@@ -108,9 +108,9 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     Expanded(
                       child: TextField(
                         controller: widget.controller,
-                        focusNode: _focusNode,
+                        // focusNode: _focusNode,
                         enabled: !widget.isLoading,
-                        maxLines: 5,
+                        maxLines: 1,
                         minLines: 1,
                         decoration: InputDecoration(
                           hintText: 'Ask KixxGPT',
