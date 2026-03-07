@@ -15,7 +15,7 @@ void main() {
     WidgetTester tester,
   ) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const KixxGPTApp());
+    await tester.pumpWidget(MyApp());
 
     // Verify the app title is displayed.
     expect(find.text('KixxGPT'), findsWidgets);
