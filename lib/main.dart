@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -683,32 +684,37 @@ class _ChatDashboardState extends State<ChatDashboard> {
         child: Column(
           children: [
             // Sidebar Header
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFF1DB584),
-                    ),
-                    child: Icon(Icons.smart_toy, color: Colors.white, size: 24),
-                  ),
-                  SizedBox(width: 12),
-                  Text(
-                    'KixxGPT',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: themeProvider.isDarkMode
-                          ? Colors.white
-                          : Colors.black87,
-                    ),
-                  ),
-                ],
-              ),
+            // Padding(
+            //   padding: EdgeInsets.all(16),
+            //   child: Row(
+            //     children: [
+            //       Container(
+            //         width: 40,
+            //         height: 40,
+            //         decoration: BoxDecoration(
+            //           shape: BoxShape.circle,
+            //           color: Color(0xFF1DB584),
+            //         ),
+            //         child: Icon(Icons.smart_toy, color: Colors.white, size: 24),
+            //       ),
+            //       SizedBox(width: 12),
+            //       Text(
+            //         'KixxGPT',
+            //         style: TextStyle(
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.bold,
+            //           color: themeProvider.isDarkMode
+            //               ? Colors.white
+            //               : Colors.black87,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Image.network(
+              "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
+              height: 70,
+              scale: 1,
             ),
             Divider(
               color: themeProvider.isDarkMode
@@ -1046,22 +1052,30 @@ class _ChatDashboardState extends State<ChatDashboard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Logo
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xFF1DB584),
-                            ),
-                            child: Icon(
-                              Icons.smart_toy,
-                              color: Colors.white,
-                              size: 60,
-                            ),
-                          ),
+                          // Container(
+                          //   width: 100,
+                          //   height: 100,
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     color: Color(0xFF1DB584),
+                          //   ),
+                          //   child: Icon(
+                          //     Icons.smart_toy,
+                          //     color: Colors.white,
+                          //     size: 60,
+                          //   ),
+                          // ),
                           SizedBox(height: 24),
 
                           // Greeting
+                          Image.network(
+                            "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
+                            height: 70,
+                            scale: 1,
+                          ),
+
+                          SizedBox(height: 12),
+
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: RichText(
@@ -1069,8 +1083,10 @@ class _ChatDashboardState extends State<ChatDashboard> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'Hello, ',
+                                    text: 'Kixx GPT (Retail)',
                                     style: TextStyle(
+                                      fontFamily:
+                                          GoogleFonts.roboto().fontFamily,
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
                                       color: themeProvider.isDarkMode
@@ -1078,25 +1094,25 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                           : Colors.black87,
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: widget.username,
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold,
-                                      color: themeProvider.isDarkMode
-                                          ? Colors.white
-                                          : Colors.black87,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' 👋',
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                      color: themeProvider.isDarkMode
-                                          ? Colors.white
-                                          : Colors.black87,
-                                    ),
-                                  ),
+                                  // TextSpan(
+                                  //   text: widget.username,
+                                  //   style: TextStyle(
+                                  //     fontSize: 28,
+                                  //     fontWeight: FontWeight.bold,
+                                  //     color: themeProvider.isDarkMode
+                                  //         ? Colors.white
+                                  //         : Colors.black87,
+                                  //   ),
+                                  // ),
+                                  // TextSpan(
+                                  //   text: ' 👋',
+                                  //   style: TextStyle(
+                                  //     fontSize: 28,
+                                  //     color: themeProvider.isDarkMode
+                                  //         ? Colors.white
+                                  //         : Colors.black87,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -1107,11 +1123,11 @@ class _ChatDashboardState extends State<ChatDashboard> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: Text(
-                              "I'm KixxGPT – ask me anything, I'm here to help.",
+                              "By GS Caltex India Private Limited \n This tool is created for sales and marketing team of GS Caltex India",
                               style: TextStyle(
                                 fontSize: 14,
                                 color: themeProvider.isDarkMode
-                                    ? Colors.white
+                                    ? Color.fromRGBO(108, 108, 112, 1)
                                     : Colors.black,
                               ),
                               textAlign: TextAlign.center,
