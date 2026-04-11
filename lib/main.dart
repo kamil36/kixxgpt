@@ -600,9 +600,9 @@ class _ChatDashboardState extends State<ChatDashboard> {
   }
 
   void sendMessage(String text) async {
+    String? sessionId;
     if (text.trim().isEmpty || currentChat == null) return;
 
-    // Add user message immediately
     final userMessage = {
       'role': 'user',
       'text': text,
@@ -613,7 +613,6 @@ class _ChatDashboardState extends State<ChatDashboard> {
       currentChat!.messages.add(userMessage);
       isLoading = true;
 
-      // Update chat title if it's still "New Chat"
       if (currentChat!.title == 'New Chat' && text.isNotEmpty) {
         currentChat!.title = text.length > 30
             ? '${text.substring(0, 30)}...'
@@ -627,24 +626,34 @@ class _ChatDashboardState extends State<ChatDashboard> {
     });
 
     try {
-      // Make API call to the chat endpoint
       final response = await http.post(
-        Uri.parse('https://smartdigisolution.com/chatgpt/api_chat_gpt.php'),
+        Uri.parse('https://sai7755.com/kixxgpt/kixx_api.php'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'message': text}),
+        body: jsonEncode({
+          'user_id': 1,
+          'message': text,
+
+          'session_id': sessionId ?? '', // ✅ FIXED
+        }),
       );
 
+      print("STATUS: ${response.statusCode}");
+      print("BODY: ${response.body}");
+
       if (response.statusCode == 200) {
-        // Parse the response - API returns {success:true, reply:"message"}
         final responseData = jsonDecode(response.body);
 
-        // Extract the reply from the API response
         String aiResponse = '';
 
-        if (responseData['success'] == true && responseData['reply'] != null) {
-          aiResponse = responseData['reply'];
+        if (responseData['success'] == true) {
+          aiResponse = responseData['reply'] ?? 'No response from AI';
+
+          // ✅ FIXED (store globally)
+          sessionId = responseData['session_id'];
+
+          print("SESSION ID: $sessionId");
         } else {
-          aiResponse = 'Sorry, could not get a response. Please try again.';
+          aiResponse = responseData['error'] ?? 'API error';
         }
 
         setState(() {
@@ -652,21 +661,21 @@ class _ChatDashboardState extends State<ChatDashboard> {
           isLoading = false;
         });
       } else {
-        // Handle API error
         setState(() {
           currentChat!.messages.add({
             'role': 'assistant',
-            'text': 'Sorry, I encountered an error. Please try again later.',
+            'text': 'Server error (${response.statusCode})',
           });
           isLoading = false;
         });
       }
     } catch (e) {
-      // Handle network error
+      print("ERROR: $e");
+
       setState(() {
         currentChat!.messages.add({
           'role': 'assistant',
-          'text': 'Network error. Please check your connection and try again.',
+          'text': 'Network error. Please check your connection.',
         });
         isLoading = false;
       });
