@@ -314,18 +314,20 @@ class _ChatDashboardState extends State<ChatDashboard> {
       child: SafeArea(
         child: Column(
           children: [
+            SizedBox(height: 15),
             Image.network(
               "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
               height: 70,
               scale: 1,
             ),
+            SizedBox(height: 10),
             Divider(
               color: themeProvider.isDarkMode
                   ? Color(0xFF333333)
                   : Color(0xFFE0E0E0),
               height: 1,
             ),
-
+            SizedBox(height: 5),
             // New Chat Button
             Padding(
               padding: EdgeInsets.all(12),
@@ -352,7 +354,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                 ),
               ),
             ),
-
+            SizedBox(height: 10),
             // Recent Chats Section
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -371,7 +373,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                 ),
               ),
             ),
-
+            SizedBox(height: 10),
             // Chat List
             Expanded(
               child: chatHistory.isEmpty
@@ -406,10 +408,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                       itemBuilder: (context, index) {
                         final chat = chatHistory[index];
                         return ListTile(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 4,
-                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
                           title: Text(
                             chat.title,
                             style: TextStyle(
@@ -654,7 +653,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 24),
+                          SizedBox(height: 10),
 
                           // Greeting
                           Stack(
@@ -669,11 +668,13 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                   color: const Color(0xFF1A1A1D),
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
-                                    color: Colors.white.withOpacity(0.08),
+                                    color: Colors.white.withValues(alpha: 0.08),
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.6),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.6,
+                                      ),
                                       blurRadius: 20,
                                       offset: const Offset(0, 10),
                                     ),
@@ -681,7 +682,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                 ),
                                 child: Image.network(
                                   "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
-                                  height: 55,
+                                  height: 50,
                                 ),
                               ),
 
@@ -699,7 +700,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                       BoxShadow(
                                         color: Color(
                                           0xFFFF6A00,
-                                        ).withOpacity(0.6),
+                                        ).withValues(alpha: 0.6),
                                         blurRadius: 12,
                                       ),
                                     ],
@@ -716,7 +717,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                             ],
                           ),
 
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 15),
 
                           // 🔸 Orange Tag (GS CALTEX INDIA)
                           Container(
@@ -725,10 +726,14 @@ class _ChatDashboardState extends State<ChatDashboard> {
                               vertical: 8,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFF6A00).withOpacity(0.12),
+                              color: const Color(
+                                0xFFFF6A00,
+                              ).withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(30),
                               border: Border.all(
-                                color: const Color(0xFFFF6A00).withOpacity(0.4),
+                                color: const Color(
+                                  0xFFFF6A00,
+                                ).withValues(alpha: 0.4),
                               ),
                             ),
                             child: Row(
@@ -753,7 +758,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
 
                           // 🔹 KixxGPT Title
                           RichText(
@@ -762,15 +767,17 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                 TextSpan(
                                   text: "Kixx",
                                   style: GoogleFonts.roboto(
-                                    fontSize: 34,
+                                    fontSize: 30,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: themeProvider.isDarkMode
+                                        ? Colors.white
+                                        : Color(0xFF1E1E1E),
                                   ),
                                 ),
                                 TextSpan(
                                   text: "GPT",
                                   style: GoogleFonts.roboto(
-                                    fontSize: 34,
+                                    fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xFFFF6A00),
                                   ),
@@ -782,16 +789,21 @@ class _ChatDashboardState extends State<ChatDashboard> {
                           const SizedBox(height: 8),
 
                           // Subtitle
-                          Text(
-                            "By GS Caltex India Private Limited\nThis tool is created for the Sales & Marketing team of GS Caltex India",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[400],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              "By GS Caltex India Private Limited\nThis tool is created for the Sales & Marketing team of GS Caltex India",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: themeProvider.isDarkMode
+                                    ? Colors.grey[400]
+                                    : Color(0xFF1E1E1E),
+                              ),
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
 
                           // Welcome Card
                           Container(
@@ -846,17 +858,17 @@ class _ChatDashboardState extends State<ChatDashboard> {
                             ),
                           ),
 
-                          SizedBox(height: 40),
+                          SizedBox(height: 10),
 
                           // Quick Action Buttons
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: GridView.count(
                               crossAxisCount: 2,
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              mainAxisSpacing: 12,
-                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 5,
+                              crossAxisSpacing: 15,
                               children: [
                                 _quickActionButton(
                                   '🛢',
@@ -1256,10 +1268,10 @@ class _ChatDashboardState extends State<ChatDashboard> {
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6),
-      padding: EdgeInsets.all(14),
+      padding: EdgeInsets.all(10), // 🔽 reduced
       decoration: BoxDecoration(
         color: themeProvider.isDarkMode ? Color(0xFF1E1E1E) : Colors.white,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: themeProvider.isDarkMode
               ? Color(0xFF2C2C2C)
@@ -1270,42 +1282,40 @@ class _ChatDashboardState extends State<ChatDashboard> {
         onTap: () {
           sendMessage(title);
         },
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min, // 🔥 important (removes extra space)
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // 🔴 Icon Container
             Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(icon, style: TextStyle(color: color, fontSize: 20)),
+              padding: EdgeInsets.all(8), // 🔽 reduced
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              child: Text(icon, style: TextStyle(color: color, fontSize: 18)),
             ),
 
-            SizedBox(width: 12),
+            SizedBox(height: 6), // 🔽 small spacing
 
-            // 📄 Text Section
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: themeProvider.isDarkMode
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: TextStyle(color: Colors.grey, fontSize: 10),
-                  ),
-                ],
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
+            SizedBox(height: 2),
+
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: themeProvider.isDarkMode
+                    ? Colors.grey[400]
+                    : Color(0xFF1E1E1E),
+                fontSize: 10,
               ),
             ),
           ],
