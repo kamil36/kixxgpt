@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:kixxgpt/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../models/chat.dart';
@@ -304,292 +305,298 @@ class _ChatDashboardState extends State<ChatDashboard> {
     }
   }
 
-  Widget _buildDrawer() {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+  // Widget _buildDrawer() {
+  //   final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return Drawer(
-      backgroundColor: themeProvider.isDarkMode
-          ? Color(0xFF1a1a1a)
-          : Colors.white,
-      child: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 15),
-            Image.network(
-              "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
-              height: 70,
-              scale: 1,
-            ),
-            SizedBox(height: 10),
-            Divider(
-              color: themeProvider.isDarkMode
-                  ? Color(0xFF333333)
-                  : Color(0xFFE0E0E0),
-              height: 1,
-            ),
-            SizedBox(height: 5),
-            // New Chat Button
-            Padding(
-              padding: EdgeInsets.all(12),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    createNewChat();
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.add, size: 20),
-                  label: Text(
-                    "New Chat",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFF6A00),
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            // Recent Chats Section
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'RECENT CHATS',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: themeProvider.isDarkMode
-                        ? Color(0xFF666666)
-                        : Colors.black54,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            // Chat List
-            Expanded(
-              child: chatHistory.isEmpty
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(vertical: 40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.chat_bubble_outline,
-                            color: themeProvider.isDarkMode
-                                ? Color(0xFF444444)
-                                : Colors.grey,
-                            size: 40,
-                          ),
-                          SizedBox(height: 12),
-                          Text(
-                            'No chat history yet',
-                            style: TextStyle(
-                              color: themeProvider.isDarkMode
-                                  ? Color(0xFF666666)
-                                  : Colors.black54,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: chatHistory.length,
-                      itemBuilder: (context, index) {
-                        final chat = chatHistory[index];
-                        return ListTile(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                          title: Text(
-                            chat.title,
-                            style: TextStyle(
-                              color: themeProvider.isDarkMode
-                                  ? Color(0xFFCCCCCC)
-                                  : Colors.black87,
-                              fontSize: 12,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: Text(
-                            '${chat.messages.length} messages',
-                            style: TextStyle(
-                              color: themeProvider.isDarkMode
-                                  ? Color(0xFF666666)
-                                  : Colors.black54,
-                              fontSize: 10,
-                            ),
-                          ),
-                          onTap: () => loadChat(chat),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              color: Color(0xFFFF6A00),
-                              size: 18,
-                            ),
-                            onPressed: () => deleteChat(chat, index),
-                          ),
-                        );
-                      },
-                    ),
-            ),
+  //   return Drawer(
+  //     backgroundColor: themeProvider.isDarkMode
+  //         ? Color(0xFF1a1a1a)
+  //         : Colors.white,
+  //     child: SafeArea(
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           SizedBox(height: 15),
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 10),
+  //             child: Image.network(
+  //               "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
+  //               height: 45,
+  //               scale: 1,
+  //             ),
+  //           ),
+  //           SizedBox(height: 10),
+  //           Divider(
+  //             color: themeProvider.isDarkMode
+  //                 ? Color(0xFF333333)
+  //                 : Color(0xFFE0E0E0),
+  //             height: 1,
+  //           ),
+  //           SizedBox(height: 5),
+  //           // New Chat Button
+  //           Padding(
+  //             padding: EdgeInsets.all(12),
+  //             child: SizedBox(
+  //               width: double.infinity,
+  //               child: ElevatedButton.icon(
+  //                 onPressed: () {
+  //                   createNewChat();
+  //                   Navigator.pop(context);
+  //                 },
+  //                 icon: Icon(Icons.add, size: 20),
+  //                 label: Text(
+  //                   "New Chat",
+  //                   style: TextStyle(fontWeight: FontWeight.w600),
+  //                 ),
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: Color(0xFFFF6A00),
+  //                   foregroundColor: Colors.white,
+  //                   padding: EdgeInsets.symmetric(vertical: 12),
+  //                   shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(8),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(height: 10),
+  //           // Recent Chats Section
+  //           Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  //             child: Align(
+  //               alignment: Alignment.centerLeft,
+  //               child: Text(
+  //                 'RECENT CHATS',
+  //                 style: TextStyle(
+  //                   fontSize: 11,
+  //                   fontWeight: FontWeight.w600,
+  //                   color: themeProvider.isDarkMode
+  //                       ? Color(0xFF666666)
+  //                       : Colors.black54,
+  //                   letterSpacing: 1,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(height: 10),
+  //           // Chat List
+  //           Expanded(
+  //             child: chatHistory.isEmpty
+  //                 ? Padding(
+  //                     padding: EdgeInsets.symmetric(vertical: 40),
+  //                     child: Column(
+  //                       mainAxisAlignment: MainAxisAlignment.center,
+  //                       children: [
+  //                         Icon(
+  //                           Icons.chat_bubble_outline,
+  //                           color: themeProvider.isDarkMode
+  //                               ? Color(0xFF444444)
+  //                               : Colors.grey,
+  //                           size: 40,
+  //                         ),
+  //                         SizedBox(height: 12),
+  //                         Text(
+  //                           'No chat history yet',
+  //                           style: TextStyle(
+  //                             color: themeProvider.isDarkMode
+  //                                 ? Color(0xFF666666)
+  //                                 : Colors.black54,
+  //                             fontSize: 12,
+  //                           ),
+  //                           textAlign: TextAlign.center,
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   )
+  //                 : ListView.builder(
+  //                     itemCount: chatHistory.length,
+  //                     itemBuilder: (context, index) {
+  //                       final chat = chatHistory[index];
+  //                       return ListTile(
+  //                         contentPadding: EdgeInsets.symmetric(horizontal: 12),
+  //                         title: Text(
+  //                           chat.title,
+  //                           style: TextStyle(
+  //                             color: themeProvider.isDarkMode
+  //                                 ? Color(0xFFCCCCCC)
+  //                                 : Colors.black87,
+  //                             fontSize: 12,
+  //                           ),
+  //                           maxLines: 1,
+  //                           overflow: TextOverflow.ellipsis,
+  //                         ),
+  //                         subtitle: Text(
+  //                           '${chat.messages.length} messages',
+  //                           style: TextStyle(
+  //                             color: themeProvider.isDarkMode
+  //                                 ? Color(0xFF666666)
+  //                                 : Colors.black54,
+  //                             fontSize: 10,
+  //                           ),
+  //                         ),
+  //                         onTap: () => loadChat(chat),
+  //                         trailing: IconButton(
+  //                           icon: Icon(
+  //                             Icons.delete_outline,
+  //                             color: themeProvider.isDarkMode
+  //                                 ? Color(0xFFFF6A00)
+  //                                 : Colors.black,
+  //                             size: 18,
+  //                           ),
+  //                           onPressed: () => deleteChat(chat, index),
+  //                         ),
+  //                       );
+  //                     },
+  //                   ),
+  //           ),
 
-            // User Profile Section
-            Divider(
-              color: themeProvider.isDarkMode
-                  ? Color(0xFF333333)
-                  : Color(0xFFE0E0E0),
-              height: 1,
-            ),
-            Padding(
-              padding: EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFFF6A00),
-                    ),
-                    child: Center(
-                      child: Text(
-                        widget.username[0].toUpperCase(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.username,
-                          style: TextStyle(
-                            color: themeProvider.isDarkMode
-                                ? Colors.white
-                                : Colors.black87,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          "Employee",
-                          style: TextStyle(
-                            color: themeProvider.isDarkMode
-                                ? Color(0xFF888888)
-                                : Colors.black54,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Logout",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFFFF6A00),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.logout,
-                          color: themeProvider.isDarkMode
-                              ? Color(0xFF888888)
-                              : Colors.black54,
-                          size: 20,
-                        ),
-                        onPressed: () async {
-                          // Show confirmation dialog
-                          final shouldLogout = await showDialog<bool>(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              backgroundColor: themeProvider.isDarkMode
-                                  ? Color(0xFF1a1a1a)
-                                  : Colors.white,
-                              title: Text(
-                                'Logout',
-                                style: TextStyle(
-                                  color: themeProvider.isDarkMode
-                                      ? Colors.white
-                                      : Colors.black87,
-                                ),
-                              ),
-                              content: Text(
-                                'Are you sure you want to logout?',
-                                style: TextStyle(
-                                  color: themeProvider.isDarkMode
-                                      ? Colors.white70
-                                      : Colors.black54,
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(false),
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      color: themeProvider.isDarkMode
-                                          ? Colors.white70
-                                          : Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(true),
-                                  child: Text(
-                                    'Logout',
-                                    style: TextStyle(color: Color(0xFFFF6A00)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
+  //           // User Profile Section
+  //           Divider(
+  //             color: themeProvider.isDarkMode
+  //                 ? Color(0xFF333333)
+  //                 : Color(0xFFE0E0E0),
+  //             height: 1,
+  //           ),
+  //           Padding(
+  //             padding: EdgeInsets.all(12),
+  //             child: Row(
+  //               children: [
+  //                 Container(
+  //                   width: 32,
+  //                   height: 32,
+  //                   decoration: BoxDecoration(
+  //                     shape: BoxShape.circle,
+  //                     color: Color(0xFFFF6A00),
+  //                   ),
+  //                   child: Center(
+  //                     child: Text(
+  //                       widget.username[0].toUpperCase(),
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 SizedBox(width: 12),
+  //                 Expanded(
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         widget.username,
+  //                         style: TextStyle(
+  //                           color: themeProvider.isDarkMode
+  //                               ? Colors.white
+  //                               : Colors.black87,
+  //                           fontSize: 12,
+  //                           fontWeight: FontWeight.w600,
+  //                         ),
+  //                       ),
+  //                       Text(
+  //                         "Employee",
+  //                         style: TextStyle(
+  //                           color: themeProvider.isDarkMode
+  //                               ? Color(0xFF888888)
+  //                               : Colors.black54,
+  //                           fontSize: 10,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Row(
+  //                   children: [
+  //                     Text(
+  //                       "Logout",
+  //                       style: TextStyle(
+  //                         fontSize: 12,
+  //                         color: Color(0xFFFF6A00),
+  //                         fontWeight: FontWeight.w600,
+  //                       ),
+  //                     ),
+  //                     IconButton(
+  //                       icon: Icon(
+  //                         Icons.logout,
+  //                         color: themeProvider.isDarkMode
+  //                             ? Color(0xFF888888)
+  //                             : Colors.black54,
+  //                         size: 20,
+  //                       ),
+  //                       onPressed: () async {
+  //                         // Show confirmation dialog
+  //                         final shouldLogout = await showDialog<bool>(
+  //                           context: context,
+  //                           builder: (context) => AlertDialog(
+  //                             backgroundColor: themeProvider.isDarkMode
+  //                                 ? Color(0xFF1a1a1a)
+  //                                 : Colors.white,
+  //                             title: Text(
+  //                               'Logout',
+  //                               style: TextStyle(
+  //                                 color: themeProvider.isDarkMode
+  //                                     ? Colors.white
+  //                                     : Colors.black87,
+  //                               ),
+  //                             ),
+  //                             content: Text(
+  //                               'Are you sure you want to logout?',
+  //                               style: TextStyle(
+  //                                 color: themeProvider.isDarkMode
+  //                                     ? Colors.white70
+  //                                     : Colors.black54,
+  //                               ),
+  //                             ),
+  //                             actions: [
+  //                               TextButton(
+  //                                 onPressed: () =>
+  //                                     Navigator.of(context).pop(false),
+  //                                 child: Text(
+  //                                   'Cancel',
+  //                                   style: TextStyle(
+  //                                     color: themeProvider.isDarkMode
+  //                                         ? Colors.white70
+  //                                         : Colors.black54,
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                               TextButton(
+  //                                 onPressed: () =>
+  //                                     Navigator.of(context).pop(true),
+  //                                 child: Text(
+  //                                   'Logout',
+  //                                   style: TextStyle(color: Color(0xFFFF6A00)),
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         );
 
-                          if (shouldLogout == true) {
-                            // Call logout function from parent
-                            if (widget.onLogout != null) {
-                              widget.onLogout!();
-                            }
-                            // Navigate back to login
-                            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (context) => LoginPage(),
-                              ),
-                              (route) => false,
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  //                         if (shouldLogout == true) {
+  //                           // Call logout function from parent
+  //                           if (widget.onLogout != null) {
+  //                             widget.onLogout!();
+  //                           }
+  //                           // Navigate back to login
+  //                           Navigator.of(context).pushAndRemoveUntil(
+  //                             MaterialPageRoute(
+  //                               builder: (context) => LoginPage(),
+  //                             ),
+  //                             (route) => false,
+  //                           );
+  //                         }
+  //                       },
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -599,7 +606,13 @@ class _ChatDashboardState extends State<ChatDashboard> {
       backgroundColor: themeProvider.isDarkMode
           ? Color(0xFF0d0d0d)
           : Color(0xFFF5F5F5),
-      drawer: _buildDrawer(),
+      drawer: AppDrawer(
+        username: widget.username,
+        chatHistory: chatHistory,
+        createNewChat: createNewChat,
+        loadChat: loadChat,
+        deleteChat: deleteChat,
+      ),
       appBar: AppBar(
         backgroundColor: themeProvider.isDarkMode
             ? Color(0xFF1a1a1a)
@@ -682,7 +695,7 @@ class _ChatDashboardState extends State<ChatDashboard> {
                                 ),
                                 child: Image.network(
                                   "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
-                                  height: 50,
+                                  height: 40,
                                 ),
                               ),
 
