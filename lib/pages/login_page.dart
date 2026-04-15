@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           'Please login to continue.',
                           style: TextStyle(
-                            color: Color(0xFFFF8A83), 
+                            color: Color(0xFFFF8A83),
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -213,19 +213,30 @@ class _LoginPageState extends State<LoginPage> {
                             horizontal: 16,
                             vertical: 14,
                           ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: const Color(0xFF666666),
-                              size: 20,
+                          suffixIcon: Container(
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff222222),
+
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                              ),
                             ),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
+                            child: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: const Color(0xFF777777),
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
                           ),
                         ),
                       ),

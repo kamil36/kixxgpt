@@ -33,19 +33,21 @@ class AppDrawer extends StatelessWidget {
           : Colors.white,
       child: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 15),
 
             // Logo
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Image.network(
-                "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
-                height: 45,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Image.network(
+                  "https://smartdigisolution.com/chatgpt/GS_Caltex_Logo.png",
+                  height: 45,
+                ),
               ),
             ),
-
             const SizedBox(height: 10),
             Divider(
               color: themeProvider.isDarkMode
@@ -93,17 +95,68 @@ class AppDrawer extends StatelessWidget {
             // Chat List
             Expanded(
               child: chatHistory.isEmpty
-                  ? Center(child: Text("No chat history yet"))
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(vertical: 40),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.chat_bubble_outline,
+                            color: themeProvider.isDarkMode
+                                ? Color(0xFF444444)
+                                : Colors.grey,
+                            size: 40,
+                          ),
+                          SizedBox(height: 12),
+                          Text(
+                            'No chat history yet',
+                            style: TextStyle(
+                              color: themeProvider.isDarkMode
+                                  ? Color(0xFF666666)
+                                  : Colors.black54,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    )
                   : ListView.builder(
                       itemCount: chatHistory.length,
                       itemBuilder: (context, index) {
                         final chat = chatHistory[index];
                         return ListTile(
-                          title: Text(chat.title),
-                          subtitle: Text('${chat.messages.length} messages'),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                          title: Text(
+                            chat.title,
+                            style: TextStyle(
+                              color: themeProvider.isDarkMode
+                                  ? Color(0xFFCCCCCC)
+                                  : Colors.black87,
+                              fontSize: 12,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Text(
+                            '${chat.messages.length} messages',
+                            style: TextStyle(
+                              color: themeProvider.isDarkMode
+                                  ? Color(0xFF666666)
+                                  : Colors.black54,
+                              fontSize: 10,
+                            ),
+                          ),
                           onTap: () => loadChat(chat),
                           trailing: IconButton(
-                            icon: Icon(Icons.delete_outline),
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: themeProvider.isDarkMode
+                                  ? Color(0xFFFF6A00)
+                                  : Colors.black,
+                              size: 18,
+                            ),
                             onPressed: () => deleteChat(chat, index),
                           ),
                         );
